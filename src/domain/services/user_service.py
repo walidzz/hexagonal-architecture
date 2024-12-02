@@ -8,4 +8,6 @@ class UserService:
         self.user_repository = user_repository
 
     async def list_users(self) -> list[User]:
+        # Business logic here
+        # For now, just return the list of users from the repository
         return await self.user_repository.list_users()

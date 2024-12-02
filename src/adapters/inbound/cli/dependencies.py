@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from typing import Annotated
 
 from elasticsearch import AsyncElasticsearch
@@ -26,8 +27,8 @@ def elastic_search_user_repository_dep() -> ElasticSearchUserRepository:
 
 
 def user_service_dep(
-        user_repository: Annotated[UserRepositoryPort, Depends(local_user_repository_dep)]
+        user_repository_factory: Callable[[], UserRepositoryPort] = local_user_repository_dep
 ) -> UserService:
     return UserService(
-        user_repository=user_repository
+        user_repository=user_repository_factory()
     )
